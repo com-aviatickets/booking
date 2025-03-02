@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String token = extractAndValidateToken(request);
+        String token = extractToken(request);
         if (token != null) {
             Long userId = getUserIdFromToken(token);
             Authentication authentication = createAuthentication(userId);
@@ -39,15 +39,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String extractAndValidateToken(HttpServletRequest request) {
+    private String extractToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("aviaticketsAccessToken".equals(cookie.getName())) {
-                    String token = cookie.getValue();
-                    if (validateToken(token)) {
-                        return token;
-                    }
+                    return cookie.getValue();
                 }
             }
         }
@@ -74,11 +71,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private Authentication createAuthentication(Long userId) {
-        String username = "Ivan";
-        String password = "Ivan";
-        CustomUserDetails userDetails = new CustomUserDetails(userId, username, password, Collections.emptyList());
+        CustomUserDetails userDetails = new CustomUserDetails(userId, null, null, Collections.emptyList());
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
-
-
 }

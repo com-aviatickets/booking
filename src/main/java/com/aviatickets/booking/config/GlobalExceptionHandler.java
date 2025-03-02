@@ -2,6 +2,7 @@ package com.aviatickets.booking.config;
 
 import com.aviatickets.booking.controller.response.ErrorDto;
 import com.aviatickets.booking.exception.BadRequestException;
+import com.aviatickets.booking.exception.UserNotAuthenticated;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<?> handleBadRequestException(BadRequestException e) {
         log.error(EXCEPTION_MESSAGE, e);
         return buildErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotAuthenticated.class)
+    protected ResponseEntity<?> handleUserNotAuthenticated(UserNotAuthenticated e) {
+        log.error(EXCEPTION_MESSAGE, e);
+        return buildErrorResponse(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     private ResponseEntity<?> buildErrorResponse(String message, HttpStatus status) {

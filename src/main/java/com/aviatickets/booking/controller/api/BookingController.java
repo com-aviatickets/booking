@@ -1,6 +1,6 @@
 package com.aviatickets.booking.controller.api;
 
-import com.aviatickets.booking.config.AuthenticationUtils;
+import com.aviatickets.booking.util.http.AuthenticationUtils;
 import com.aviatickets.booking.controller.request.BookingRequest;
 import com.aviatickets.booking.model.Booking;
 import com.aviatickets.booking.service.BookingService;
