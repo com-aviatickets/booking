@@ -10,7 +10,7 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 public class CustomUserDetails {
-    // Метод для получения userId
+
     private Long id;
     private String username;
     private String password;
