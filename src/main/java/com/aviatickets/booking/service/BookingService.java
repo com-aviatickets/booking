@@ -21,10 +21,12 @@ public class BookingService {
     private final BookingRepository bookingRepository;
 
     @Transactional
-    public Booking create(BookingRequest request) {
+    public Booking create(BookingRequest request, Long userId) {
         Booking booking = Booking.builder()
                 .flightId(request.flightId())
-                .userId(request.userId()).build();
+                .userId(userId)
+                .status(BookingStatus.NEW)
+                .build();
 
         return save(booking);
     }

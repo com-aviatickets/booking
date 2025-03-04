@@ -23,5 +23,10 @@ spring:
         max-page-size: 20000
         one-indexed-parameters: true
 
+app:
+  jwt:
+    accessToken:
+      secret: "vurghmwnvy8v8tvnu4nytv78h456789_+P87bbeytuv4vbrgigui54h2guwb4u6ugbrjegt78gWK-0iqkrhuihgujnbutgh5utgg"
+
 server:
   port: 8079
